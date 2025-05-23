@@ -4,6 +4,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 export default function App() {
   const [name, setName] = useState('');
   const [age, setAge] = useState(null);
+  const [color, setColor] = useState(null)
 
   const fetchAge = async () => {
     if (!name) return;
@@ -16,18 +17,32 @@ export default function App() {
     }
   };
 
+  const fetchName = async (text) => {
+    console.log(text)
+    setName(text)
+    fetchAge()
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hola Mundo</Text>
+      <Text style={styles.title}>Welcome to Lolocar</Text>
+      <Text>What's your name?</Text>
       <TextInput
         style={styles.input}
-        placeholder="Ingresa tu nombre"
-        onChangeText={setName}
+        placeholder="your name"
+        onChangeText={fetchName}
         value={name}
       />
-      <Button title="Consultar edad" onPress={fetchAge} />
-      {age !== null && (
-        <Text style={styles.result}>Edad estimada: {age} años</Text>
+      <Text>What's your favorite color?</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="your favotite color"
+        onChangeText={setColor}
+        value={color}
+      />
+
+      {age !== null && name.length >= 4 && color !== null && (
+        <Text style={styles.result}>Hola, {name}! Tu nombre tiene {age} años de edad, y tu color favorito es {color}</Text>
       )}
     </View>
   );
